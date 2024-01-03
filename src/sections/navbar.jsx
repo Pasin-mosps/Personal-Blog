@@ -1,6 +1,6 @@
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from 'react';
+import { useRef } from 'react';
 
 const navs = [
   { title: "About", sectionId: "about" },
@@ -10,35 +10,27 @@ const navs = [
 ]
 
 const Navbar = () => {
-  const [arrowPosition, setArrowPosition] = useState({ top: 0, display: 'none' });
+  const arrowRef = useRef(null);
 
   const handleClick = (sectionId) => {
-    document.getElementById(sectionId).scrollIntoView({ behavior: "smooth" });
-  };
-
-  const handleMouseMove = (e) => {
-    const currentSectionId = navs.find((nav) => document.getElementById(nav.sectionId)?.offsetTop <= e.clientY);
-    if (currentSectionId) {
-      const target = document.getElementById(currentSectionId.sectionId);
-      setArrowPosition({ top: target.offsetTop - 40, display: 'block' });
-    } else {
-      setArrowPosition({ display: 'none' });
+    const sectionElement = document.getElementById(sectionId);
+    if (sectionElement) {
+      sectionElement.scrollIntoView({ behavior: "smooth" });
     }
   };
 
-  useEffect(() => {
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
+  const handleMouseMove = (event) => {
+    const yOffset = event.clientY - arrowRef.current.getBoundingClientRect().top;
+    arrowRef.current.style.top = `${yOffset}px`;
+  };
 
   return (
-    <div className="flex flex-col gap-3 font-semibold mt-2 relative">
+    <div className="flex flex-col gap-3 font-semibold mt-2 relative" onMouseMove={handleMouseMove}>
       <FontAwesomeIcon
+        ref={arrowRef}
         className="mr-2 text-primaryTitle absolute transition-all duration-500"
         icon={faArrowRight}
-        style={{ top: arrowPosition.top, display: arrowPosition.display }}
+        style={{ display: 'none' }}
       />
       {navs.map((e, i) => (
         <div
@@ -52,5 +44,6 @@ const Navbar = () => {
     </div>
   );
 };
+
 
 export default Navbar;

@@ -5,9 +5,9 @@ const About =() =>{
             <div className="flex flex-col">
     <p className="mb-6">
         <span className="block">
-            <p className="text-lg leading-relaxed mt-2">
+            <span className="text-lg leading-relaxed mt-2">
                 I'm a passionate and adaptable software developer with a keen interest in creating robust and user-friendly web applications. My journey into programming has equipped me with a solid foundation in JavaScript, ReactJS, and backend technologies like Node.js.
-            </p>
+            </span>
         </span>
     </p>
     <ul className="list-disc ml-4">
