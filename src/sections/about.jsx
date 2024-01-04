@@ -1,7 +1,7 @@
 const About =() =>{
     return(
         <div className="scroll-m-14" id="about">
-            <h1 className="text-2xl font-bold grid grid-cols-1 justify-items-center items-center">About Me</h1>
+            <h1 className="text-2xl font-bold grid grid-cols-1 justify-items-center items-center mb-7">About Me</h1>
             <div className="flex flex-col">
     <p className="mb-6">
         <span className="block">
